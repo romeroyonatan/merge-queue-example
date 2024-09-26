@@ -19,6 +19,7 @@ concurrency:
 jobs:
   deployment:
     runs-on: ubuntu-latest
+    if: ${{ github.event.name == 'merge_group' }}
     steps:
       - name: Sleep & fail
         run: |
