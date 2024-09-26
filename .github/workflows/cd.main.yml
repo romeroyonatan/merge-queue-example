@@ -1,0 +1,26 @@
+name: Deploy job
+
+permissions:
+  contents: read
+  deployments: write
+  id-token: write
+
+on:
+  pull_request:
+    branches:
+      - '_prod/**'
+  merge_group:
+    branches:
+      - '_prod/**'
+
+concurrency: 
+  group: deploy-${{ github.event.merge_group.base_ref || github.ref }}
+
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sleep & fail
+        run: |
+          sleep 300
+          exit 1
