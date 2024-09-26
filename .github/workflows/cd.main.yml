@@ -1,10 +1,5 @@
 name: Deploy job
 
-permissions:
-  contents: read
-  deployments: write
-  id-token: write
-
 on:
   pull_request:
     branches:
@@ -13,13 +8,10 @@ on:
     branches:
       - '_prod/**'
 
-concurrency: 
-  group: deploy-${{ github.event.merge_group.base_ref || github.ref }}
-
 jobs:
   deployment:
     runs-on: ubuntu-latest
-    if: ${{ github.event.name == 'merge_group' }}
+    if: ${{ github.event_name == 'merge_group' }}
     steps:
       - name: Sleep & fail
         run: |
